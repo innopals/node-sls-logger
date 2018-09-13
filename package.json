@@ -16,19 +16,22 @@
     "sls"
   ],
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {},
   "engines": {
     "node": ">= 8"
   },
   "devDependencies": {
-    "@types/crypto-js": "^3.1.43",
-    "@types/md5": "^2.1.32",
     "@types/node": "^10.9.4"
   },
   "dependencies": {
-    "crypto-js": "^3.1.9-1",
     "lz4": "^0.6.0",
-    "md5": "^2.2.1",
     "protobufjs": "~6.8.8"
-  }
+  },
+  "files": [
+    "dist/",
+    "LICENSE",
+    "README.md",
+    "sls.proto"
+  ]
 }
