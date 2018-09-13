@@ -1,0 +1,34 @@
+{
+  "name": "sls-logger",
+  "description": "Logger for Aliyun SLS",
+  "version": "1.0.0",
+  "author": "innopals",
+  "license": "MIT",
+  "homepage": "https://github.com/innopals/node-sls-logger",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:innopals/node-sls-logger.git"
+  },
+  "keywords": [
+    "logger",
+    "logging",
+    "aliyun",
+    "sls"
+  ],
+  "main": "dist/index.js",
+  "scripts": {},
+  "engines": {
+    "node": ">= 8"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^3.1.43",
+    "@types/md5": "^2.1.32",
+    "@types/node": "^10.9.4"
+  },
+  "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "lz4": "^0.6.0",
+    "md5": "^2.2.1",
+    "protobufjs": "~6.8.8"
+  }
+}

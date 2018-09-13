@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "rootDir": "src",
+    "outDir": "dist",
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "removeComments": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "moduleResolution": "node",
+    "sourceMap": false
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules/**/*"
+  ]
+}

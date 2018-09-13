@@ -1,0 +1,11 @@
+{
+  "editor.tabSize": 2,
+  "explorer.autoReveal": false,
+  "editor.wordWrap": "on",
+  "eslint.enable": false,
+  "editor.detectIndentation": false,
+  "editor.minimap.enabled": true,
+  "editor.formatOnSave": true,
+  "files.insertFinalNewline": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
