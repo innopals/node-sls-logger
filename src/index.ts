@@ -91,9 +91,7 @@ class SlsProducer {
         agent,
         method: "POST",
         headers
-      }, res => {
-        res.once('end', f);
-      });
+      }, f);
       req.once('error', r);
       req.write(body);
       req.end();
@@ -209,3 +207,5 @@ export class SlsField {
 }
 
 export default SlsLogger;
+
+module.exports = Object.assign(SlsLogger, module.exports);

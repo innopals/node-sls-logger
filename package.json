@@ -1,7 +1,7 @@
 {
   "name": "sls-logger",
   "description": "Logger for Aliyun SLS",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "author": "innopals",
   "license": "MIT",
   "homepage": "https://github.com/innopals/node-sls-logger",
