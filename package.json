@@ -18,7 +18,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prepublishOnly": "tsc"
+    "prepublishOnly": "tsc",
+    "test": "jest"
   },
   "engines": {
     "node": ">= 8"
@@ -27,7 +28,8 @@
     "@types/jest": "^23.3.4",
     "@types/node": "^10.11.5",
     "jest": "^23.6.0",
-    "ts-jest": "^23.10.4"
+    "ts-jest": "^23.10.4",
+    "typescript": "^3.1.1"
   },
   "dependencies": {
     "lz4": "^0.6.0",

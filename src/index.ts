@@ -58,16 +58,8 @@ class SlsLogger {
     for (const item of extra) {
       if (item instanceof SlsField) {
         data[item.key] = item.value;
-      } else if (item instanceof Error) {
-        logMessage += ' ' + (item.stack || item.message) + '\n';
-      } else if (Array.isArray(item)) {
-        logMessage += ' [' + item.map(obj2str).join(', ') + ']';
-      } else if (item instanceof Date) {
-        logMessage += ' ' + String(item);
-      } else if (typeof item === 'object') {
-        logMessage += ' ' + obj2str(item);
       } else {
-        logMessage += ' ' + String(item);
+        logMessage += ' ' + obj2str(item);
       }
     }
     data.level = level.name;
