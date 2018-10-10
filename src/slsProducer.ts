@@ -26,7 +26,54 @@ class SlsProducer {
     this.options = opts;
     this.resource = `/logstores/${this.options.logstore}/shards/lb`;
   }
-  async putLogs(logGroup: LogGroup) {
+  public getLogstore() {
+    const resource = `/logstores/${this.options.logstore}`;
+    const date = (new Date()).toUTCString();
+    const headers: { [header: string]: number | string } = {
+      "Date": date,
+      "x-log-apiversion": "0.6.0",
+      "x-log-signaturemethod": "hmac-sha1"
+    };
+    let signString = `GET\n\n\n${date}\nx-log-apiversion:0.6.0\n`;
+    signString += `x-log-signaturemethod:hmac-sha1\n${resource}`;
+    const hmac = crypto.createHmac('sha1', this.options.accessSecret);
+    hmac.write(signString);
+    const sign = hmac.digest().toString("base64");
+    headers['Authorization'] = `LOG ${this.options.accessKey}:${sign}`;
+
+    return new Promise<any>((f, r) => {
+      let req = https.request({
+        protocol: 'https:',
+        hostname: this.options.endpoint,
+        port: 443,
+        path: resource,
+        agent,
+        method: "GET",
+        headers
+      }, res => {
+        req.removeAllListeners();
+        let rs = "";
+        res.once('error', r);
+        res.on('data', data => rs += data);
+        res.on('end', () => {
+          res.removeAllListeners();
+          try {
+            let data = JSON.parse(rs);
+            if (data.errorCode) {
+              r(data);
+            } else {
+              f(data);
+            }
+          } catch (e) {
+            r(e);
+          }
+        });
+      });
+      req.once('error', r);
+      req.end();
+    });
+  }
+  public putLogs(logGroup: LogGroup) {
     let body = PbLogGroup.encode(logGroup).finish() as Buffer;
     const rawLength = body.byteLength;
     if (this.options.compress) {
@@ -63,7 +110,7 @@ class SlsProducer {
     const sign = hmac.digest().toString("base64");
     headers['Authorization'] = `LOG ${this.options.accessKey}:${sign}`;
 
-    await new Promise((f, r) => {
+    return new Promise((f, r) => {
       let req = https.request({
         protocol: 'https:',
         hostname: this.options.endpoint,

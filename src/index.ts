@@ -29,6 +29,8 @@ class SlsLogger {
   }
   private producer: SlsProducer;
   private level: number;
+  private queue: { [key: string]: string }[] = [];
+  private producerState: 'PENDING' | 'READY' | 'UNAVAILABLE' = 'PENDING';
   constructor(opts: SlsLoggerOptions) {
     if (typeof opts.level === 'string') {
       this.level = LEVEL_LOOKUP[opts.level.toUpperCase()] || LEVEL_INFO;
@@ -38,12 +40,41 @@ class SlsLogger {
       this.level = LEVEL_INFO;
     }
     this.producer = new SlsProducer(opts);
+    this.producer.getLogstore().then(
+      rs => {
+        if (rs.logstoreName === opts.logstore) {
+          this.producerState = 'READY';
+        } else {
+          this.producerState = 'UNAVAILABLE';
+          console.warn(`Unable to initiate sls producer, expecting logstore name ${opts.logstore}, but got`, rs);
+        }
+      },
+      e => {
+        this.producerState = 'UNAVAILABLE';
+        console.warn(`Unable to initiate sls producer, error`, e);
+      }
+    ).then(() => {
+      // flush logs.
+      this.queue.forEach(i => this.raw(i));
+      this.queue = [];
+    });
   }
   raw(data: { [key: string]: string }) {
-    this.producer.send({
-      Time: Math.floor(Date.now() / 1000),
-      Contents: Object.keys(data).map(k => ({ Key: k, Value: data[k] }))
-    });
+    switch (this.producerState) {
+      case 'READY':
+        this.producer.send({
+          Time: Math.floor(Date.now() / 1000),
+          Contents: Object.keys(data).map(k => ({ Key: k, Value: data[k] }))
+        });
+        break;
+      case 'PENDING':
+        this.queue.push(data);
+        break;
+      case 'UNAVAILABLE':
+        const { level, message, ...extra } = data;
+        console.log(`${level ? `[${level}] ` : ""}${message}`, extra);
+        break;
+    }
   }
   log: LogMethod = (level, message, ...extra) => {
     if (typeof level === 'string') {
