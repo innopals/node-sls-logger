@@ -6,7 +6,6 @@ export default {
     const LZ4 = require('../../vendor/lz4');
     let output = Buffer.alloc(LZ4.compressBound(src.byteLength));
     const compressedSize = LZ4.compress(src, output);
-    output = output.slice(0, compressedSize);
-    return output;
+    return output.slice(0, compressedSize);
   }
 } as LZ4;
