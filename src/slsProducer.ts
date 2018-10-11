@@ -2,8 +2,7 @@ import * as path from 'path';
 import * as https from 'https';
 import * as crypto from 'crypto';
 import * as protobuf from 'protobufjs';
-// @ts-ignore there is no typescript def for lz4.
-import * as LZ4 from 'lz4';
+import lz4 from './utils/lz4';
 import { LogGroup, Log, SlsOptions } from './types';
 
 const MessageTypes = protobuf.loadSync(path.resolve(__dirname, '../sls.proto'));
@@ -77,9 +76,7 @@ class SlsProducer {
     let body = PbLogGroup.encode(logGroup).finish() as Buffer;
     const rawLength = body.byteLength;
     if (this.options.compress) {
-      let output = Buffer.alloc(LZ4.encodeBound(body.length));
-      let compressedSize = LZ4.encodeBlock(body, output);
-      body = output.slice(0, compressedSize);
+      body = lz4.compress(body);
     }
     const md5 = crypto.createHash('md5');
     md5.write(body);
@@ -119,7 +116,29 @@ class SlsProducer {
         agent,
         method: "POST",
         headers
-      }, f);
+      }, res => {
+        req.removeAllListeners();
+        let rs = "";
+        res.once('error', r);
+        res.on('data', data => rs += data);
+        res.on('end', () => {
+          res.removeAllListeners();
+          try {
+            if (rs.length === 0) {
+              f();
+              return;
+            }
+            let data = JSON.parse(rs);
+            if (data.errorCode) {
+              r(data);
+            } else {
+              f(data);
+            }
+          } catch (e) {
+            r(e);
+          }
+        });
+      });
       req.once('error', r);
       req.write(body);
       req.end();
