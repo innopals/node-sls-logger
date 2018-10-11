@@ -1,3 +1,4 @@
+// This file is a copy from https://github.com/pierrec/node-lz4/blob/master/lib/binding.js
 /**
 	Javascript version of the key LZ4 C functions
  */
