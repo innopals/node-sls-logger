@@ -62,6 +62,19 @@ class SlsLogger {
         console.warn(`Unable to initiate sls producer, error`, e);
       },
     ).then(() => {
+      if (this.producerState === "UNAVAILABLE") {
+        this.raw = (data) => {
+          const { level, message, ...extra } = data;
+          console.log(`${level ? `[${level}] ` : ""}${message}`, extra);
+        };
+      } else if (this.producerState === "READY") {
+        this.raw = (data) => {
+          this.producer.send({
+            Time: Math.floor(Date.now() / 1000),
+            Contents: Object.keys(data).map((k) => ({ Key: k, Value: data[k] })),
+          });
+        };
+      }
       // flush logs.
       this.queue.forEach((i) => this.raw(i));
       this.queue = [];
@@ -95,21 +108,7 @@ class SlsLogger {
     this.fatal = this.log.bind(this, "FATAL");
   }
   public raw(data: { [key: string]: string }) {
-    switch (this.producerState) {
-      case "READY":
-        this.producer.send({
-          Time: Math.floor(Date.now() / 1000),
-          Contents: Object.keys(data).map((k) => ({ Key: k, Value: data[k] })),
-        });
-        break;
-      case "PENDING":
-        this.queue.push(data);
-        break;
-      case "UNAVAILABLE":
-        const { level, message, ...extra } = data;
-        console.log(`${level ? `[${level}] ` : ""}${message}`, extra);
-        break;
-    }
+    this.queue.push(data);
   }
 }
 
