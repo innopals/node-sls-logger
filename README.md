@@ -38,13 +38,29 @@ const logger = new SlsLogger({
   disabled: true,
 });
 
-logger.info("Hello world!", new Date(), function () { "abc"; }, { a: 1, b: { c: 1 }, d: "123", e: false }, new Object(), [1, 2, 3, "abc", false, null, undefined, new Error("error1")], SlsLogger.createField("module", "main"), 1234, true, null, undefined, new Error("error2"));
+logger.info(
+  "Hello world!",
+  new Date(),
+  function () { "abc"; },
+  { a: 1, b: { c: 1 }, d: "123", e: false },
+  new Object(),
+  [1, 2, 3, "abc", false, null, undefined, new Error("error1")],
+  SlsLogger.createField("module", "main"),
+  1234,
+  true,
+  null,
+  undefined,
+  new Error("error2")
+);
 ```
 
 And you can pass a function as log message generator to improve performance; it will not be called unless the log level is enabled.
 
 ``` js
-logger.debug(() => "Debug message from generator.", SlsLogger.createField("module", "debug"));
+logger.debug(
+  () => "Debug message from generator.",
+  SlsLogger.createField("module", "debug")
+);
 // Set log level on the fly, e.g. through user signal or rest api.
 logger.setLevel("DEBUG");
 ```
