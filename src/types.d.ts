@@ -11,6 +11,7 @@ export interface SlsOptions {
 }
 export interface SlsLoggerOptions extends SlsOptions {
   level?: number | "ALL" | "TRACE" | "DEBUG" | "INFO" | "WARN" | "ERROR" | "FATAL" | "OFF";
+  disabled?: boolean;
 }
 
 export interface LogContent {
