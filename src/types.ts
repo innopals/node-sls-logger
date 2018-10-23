@@ -7,7 +7,7 @@ export interface SlsOptions {
   topic?: string;
   hashkey?: string;
   compress?: boolean;
-  tags?: { [key: string]: string }
+  tags?: { [key: string]: string };
 }
 export interface SlsLoggerOptions extends SlsOptions {
   level?: number | "ALL" | "TRACE" | "DEBUG" | "INFO" | "WARN" | "ERROR" | "FATAL" | "OFF";
@@ -37,9 +37,5 @@ export interface LogGroup {
   LogTags?: LogTag[];
 }
 
-export interface LogMethod {
-  (level: string | { name: string, level: number }, message: string | (() => string), ...extra: any[]): any;
-}
-export interface LeveledLogMethod {
-  (message: string | (() => string), ...extra: any[]): any;
-}
+export type LogMethod = (level: string | { name: string, level: number }, message: string | (() => string), ...extra: any[]) => any;
+export type LeveledLogMethod = (message: string | (() => string), ...extra: any[]) => any;

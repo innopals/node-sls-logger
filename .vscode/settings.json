@@ -7,5 +7,6 @@
   "editor.minimap.enabled": true,
   "editor.formatOnSave": true,
   "files.insertFinalNewline": true,
+  "tslint.autoFixOnSave": true,
   "typescript.tsdk": "node_modules/typescript/lib"
 }
