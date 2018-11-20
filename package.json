@@ -1,7 +1,7 @@
 {
   "name": "sls-logger",
   "description": "Logger for Aliyun SLS",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "innopals",
   "license": "MIT",
   "homepage": "https://github.com/innopals/node-sls-logger",
@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
-    "@types/node": "^10.12.8",
+    "@types/node": "^10.12.9",
     "jest": "^23.6.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^23.10.4",
