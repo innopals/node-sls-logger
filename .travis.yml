@@ -1,9 +1,9 @@
 language: node_js
+sudo: false
 node_js:
-  - "6"
   - "8"
   - "10"
-sudo: false
+  - "11"
 script:
-- tsc
+- npx tsc
 - npm t
