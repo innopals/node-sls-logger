@@ -1,7 +1,7 @@
 {
   "name": "sls-logger",
   "description": "Logger for Aliyun SLS",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "author": "innopals",
   "license": "MIT",
   "homepage": "https://github.com/innopals/node-sls-logger",
@@ -18,7 +18,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prepublishOnly": "rimraf dist && tsc",
+    "prepublishOnly": "npm run dist",
+    "dist": "rimraf dist && tsc",
     "test": "jest"
   },
   "engines": {

@@ -1,8 +1,6 @@
-// @ts-ignore there is no typescript def for lz4.
-import * as LZ4 from "lz4";
 import SlsField from "./slsField";
 import SlsProducer from "./slsProducer";
-import { LeveledLogMethod, LogMethod, SlsLoggerOptions } from "./types";
+import { LeveledLogMethod, LogMethod, SlsLoggerOptions, SlsOptions } from "./types";
 import obj2str from "./utils/obj2str";
 
 export const LEVEL_OFF = 9007199254740991;
@@ -13,7 +11,7 @@ export const LEVEL_INFO = 20000;
 export const LEVEL_DEBUG = 10000;
 export const LEVEL_TRACE = 5000;
 export const LEVEL_ALL = 0;
-const LEVEL_LOOKUP: { [key: string]: number } = {
+export const LEVEL_LOOKUP: { [key: string]: number } = {
   ALL: LEVEL_ALL,
   TRACE: LEVEL_TRACE,
   DEBUG: LEVEL_DEBUG,
@@ -130,5 +128,5 @@ class SlsLogger {
 }
 
 export default SlsLogger;
-export { SlsField };
+export { SlsField, LeveledLogMethod, LogMethod, SlsLoggerOptions, SlsOptions };
 module.exports = Object.assign(SlsLogger, module.exports);
