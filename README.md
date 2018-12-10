@@ -23,6 +23,8 @@ The nodejs logger for aliyun SLS with minimum dependencies.
 | level        | INFO    | string / number | false    | Log level                                                    |
 | disabled     | false   | boolean         | false    | Disable sls and log to stdout                                |
 
+Note: if your configuration is incorrect(fail to get logstore), all logs will be written to stdout.
+
 ## Usage
 
 ```javascript
@@ -64,3 +66,7 @@ logger.debug(
 // Set log level on the fly, e.g. through user signal or rest api.
 logger.setLevel("DEBUG");
 ```
+
+## Contributing
+
+This project welcomes contributions from the community. Contributions are accepted using GitHub pull requests. If you're not familiar with making GitHub pull requests, please refer to the [GitHub documentation "Creating a pull request"](https://help.github.com/articles/creating-a-pull-request/).

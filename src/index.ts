@@ -128,5 +128,5 @@ class SlsLogger {
 }
 
 export default SlsLogger;
-export { SlsField, LeveledLogMethod, LogMethod, SlsLoggerOptions, SlsOptions };
+export { SlsField, SlsProducer, LeveledLogMethod, LogMethod, SlsLoggerOptions, SlsOptions };
 module.exports = Object.assign(SlsLogger, module.exports);
