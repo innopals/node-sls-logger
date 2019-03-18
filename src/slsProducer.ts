@@ -161,7 +161,7 @@ class SlsProducer {
             Source: this.options.source,
           });
         } catch (e) {
-          console.error("Unable to put logs to sls.", e);
+          console.error("Unable to put logs to sls.", e, "Original logs:", logs);
         }
       }
       this.worker = undefined;

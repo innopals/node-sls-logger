@@ -1,7 +1,7 @@
 {
   "name": "sls-logger",
   "description": "Logger for Aliyun SLS",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "author": "innopals",
   "license": "MIT",
   "homepage": "https://github.com/innopals/node-sls-logger",
@@ -26,12 +26,12 @@
     "node": ">= 8"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.9",
-    "@types/node": "^11.9.5",
-    "jest": "^24.1.0",
+    "@types/jest": "^24.0.11",
+    "@types/node": "^11.11.3",
+    "jest": "^24.5.0",
     "rimraf": "^2.6.3",
     "ts-jest": "^24.0.0",
-    "tslint": "^5.13.0",
+    "tslint": "^5.14.0",
     "typescript": "^3.3.3333"
   },
   "dependencies": {
