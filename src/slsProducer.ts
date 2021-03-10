@@ -33,8 +33,12 @@ class SlsProducer {
       "x-log-apiversion": "0.6.0",
       "x-log-signaturemethod": "hmac-sha1",
     };
-    let signString = `GET\n\n\n${date}\nx-log-apiversion:0.6.0\n`;
-    signString += `x-log-signaturemethod:hmac-sha1\n${resource}`;
+    let signString = `GET\n\n\n${date}`;
+    if (this.options.securityToken) {
+      headers['x-acs-security-token'] = this.options.securityToken;
+      signString+= `\nx-acs-security-token:${this.options.securityToken}`
+    }
+    signString += `\nx-log-apiversion:0.6.0\nx-log-signaturemethod:hmac-sha1\n${resource}`;
     const hmac = crypto.createHmac("sha1", this.options.accessSecret);
     hmac.write(signString);
     const sign = hmac.digest().toString("base64");
@@ -91,7 +95,12 @@ class SlsProducer {
       "x-log-signaturemethod": "hmac-sha1",
       "x-log-bodyrawsize": rawLength,
     };
-    let signString = `POST\n${bodyMd5}\napplication/x-protobuf\n${date}\nx-log-apiversion:0.6.0\nx-log-bodyrawsize:${rawLength}\n`;
+    let signString = `POST\n${bodyMd5}\napplication/x-protobuf\n${date}`;
+    if (this.options.securityToken) {
+      headers['x-acs-security-token'] = this.options.securityToken;
+      signString+= `\nx-acs-security-token:${this.options.securityToken}`
+    }
+    signString += `\nx-log-apiversion:0.6.0\nx-log-bodyrawsize:${rawLength}\n`;
     if (this.options.compress) {
       headers["x-log-bodyrawsize"] = rawLength;
       headers["x-log-compresstype"] = "lz4";

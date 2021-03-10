@@ -1,6 +1,7 @@
 export interface SlsOptions {
   accessKey: string;
   accessSecret: string;
+  securityToken?: string;
   endpoint: string;
   logstore: string;
   source?: string;
