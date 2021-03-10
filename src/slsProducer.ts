@@ -36,7 +36,7 @@ class SlsProducer {
     let signString = `GET\n\n\n${date}`;
     if (this.options.securityToken) {
       headers['x-acs-security-token'] = this.options.securityToken;
-      signString+= `\nx-acs-security-token:${this.options.securityToken}`
+      signString += `\nx-acs-security-token:${this.options.securityToken}`
     }
     signString += `\nx-log-apiversion:0.6.0\nx-log-signaturemethod:hmac-sha1\n${resource}`;
     const hmac = crypto.createHmac("sha1", this.options.accessSecret);
@@ -98,7 +98,7 @@ class SlsProducer {
     let signString = `POST\n${bodyMd5}\napplication/x-protobuf\n${date}`;
     if (this.options.securityToken) {
       headers['x-acs-security-token'] = this.options.securityToken;
-      signString+= `\nx-acs-security-token:${this.options.securityToken}`
+      signString += `\nx-acs-security-token:${this.options.securityToken}`
     }
     signString += `\nx-log-apiversion:0.6.0\nx-log-bodyrawsize:${rawLength}\n`;
     if (this.options.compress) {
@@ -116,7 +116,7 @@ class SlsProducer {
     const sign = hmac.digest().toString("base64");
     headers.Authorization = `LOG ${this.options.accessKey}:${sign}`;
 
-    return new Promise((f, r) => {
+    return new Promise<void>((f, r) => {
       const req = https.request({
         protocol: "https:",
         hostname: this.options.endpoint,

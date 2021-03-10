@@ -9,19 +9,20 @@ The nodejs logger for aliyun SLS with minimum dependencies.
 
 ## Configuration
 
-| Config Name  | Default | Type            | Required | Description                                                  |
-| ------------ | ------- | --------------- | -------- | ------------------------------------------------------------ |
-| accessKey    |         | string          | true     | Your access key to SLS                                       |
-| accessSecret |         | string          | true     | Your secret to access SLS                                    |
-| endpoint     |         | string          | true     | Your SLS endpoint, e.g. example.cn-hangzhou.log.aliyuncs.com |
-| logstore     |         | string          | true     | Your logstore name                                           |
-| source       |         | string          | false    | Source for your logs                                         |
-| topic        |         | string          | false    | Topic for your logs                                          |
-| hashkey      |         | string          | false    |                                                              |
-| compress     | false   | boolean         | false    | Use lz4 to compress log payload                              |
-| tags         |         | key-value pair  | false    | Extra tags for your logs                                     |
-| level        | INFO    | string / number | false    | Log level                                                    |
-| disabled     | false   | boolean         | false    | Disable sls and log to stdout                                |
+| Config Name   | Default | Type            | Required | Description                                                  |
+| ------------- | ------- | --------------- | -------- | ------------------------------------------------------------ |
+| accessKey     |         | string          | true     | Your access key to SLS                                       |
+| accessSecret  |         | string          | true     | Your secret to access SLS                                    |
+| securityToken |         | string          | false    | Your STS security token                                      |
+| endpoint      |         | string          | true     | Your SLS endpoint, e.g. example.cn-hangzhou.log.aliyuncs.com |
+| logstore      |         | string          | true     | Your logstore name                                           |
+| source        |         | string          | false    | Source for your logs                                         |
+| topic         |         | string          | false    | Topic for your logs                                          |
+| hashkey       |         | string          | false    |                                                              |
+| compress      | false   | boolean         | false    | Use lz4 to compress log payload                              |
+| tags          |         | key-value pair  | false    | Extra tags for your logs                                     |
+| level         | INFO    | string / number | false    | Log level                                                    |
+| disabled      | false   | boolean         | false    | Disable sls and log to stdout                                |
 
 Note: if your configuration is incorrect(fail to get logstore), all logs will be written to stdout.
 
