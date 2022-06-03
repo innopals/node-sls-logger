@@ -1,5 +1,6 @@
 # Logger for Aliyun SLS
 
+[![Node.js CI](https://github.com/innopals/node-sls-logger/actions/workflows/node.js.yml/badge.svg)](https://github.com/innopals/node-sls-logger/actions/workflows/node.js.yml)
 [![NPM Version](https://img.shields.io/npm/v/sls-logger.svg)](https://npmjs.org/package/sls-logger)
 [![NPM Downloads](https://img.shields.io/npm/dm/sls-logger.svg)](https://npmjs.org/package/sls-logger)
 
